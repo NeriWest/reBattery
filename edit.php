@@ -98,7 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
                         </option>
                         <option value="Separated" <?= ($civilStatus ?? '') == 'Separated' ? 'selected' : '' ?>>Separated
                         </option>
-                        <option value="Widowed" <?= ($civilStatus ?? '') == 'Widow/Widower' ? 'selected' : '' ?>>Widow/Widower</option>
+                        <option value="Widowed" <?= ($civilStatus ?? '') == 'Widow/Widower' ? 'selected' : '' ?>>
+                            Widow/Widower</option>
                     </select>
                 </label><br><br>
 

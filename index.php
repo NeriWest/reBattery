@@ -33,7 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
 
 }
 
-$sql = "SELECT * FROM residents ORDER BY created_at DESC";
+$search = $_GET['search'] ?? '';
+if ($search) {
+    $sql = "SELECT * FROM residents 
+            WHERE CONCAT(firstName, ' ', middleName, ' ', lastName) LIKE '%$search%' 
+            OR residentCode LIKE '%$search%' 
+            ORDER BY created_at DESC";
+} else {
+    $sql = "SELECT * FROM residents ORDER BY created_at DESC";
+}
 $result = $conn->query($sql);
 
 // Function to format date as mm/dd/yyyy
@@ -109,7 +117,15 @@ function formatDate($dateString)
                 <input type="submit" name="add" value="Add Resident">
             </fieldset>
         </form>
-
+        <div class="center">
+            <form method="GET" action="">
+                <input type="text" name="search" placeholder="Search..."
+                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                <input type="submit" value="Search">
+                <a href="index.php">Reset</a>
+            </form>
+        </div>
+        <br>
         <?php if ($result && $result->num_rows > 0): ?>
             <table>
                 <thead>
