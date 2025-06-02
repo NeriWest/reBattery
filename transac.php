@@ -115,7 +115,6 @@ function formatDate($dateString)
                         </td>
                     </tr>
 
-
                     <tr>
                         <td>
                             <p><strong>Date of Stay:</strong>
@@ -123,7 +122,6 @@ function formatDate($dateString)
                         <td> <?= formatDate($row['dateOfStay']) ?></p>
                         </td>
                     </tr>
-
 
                     <tr>
                         <td>

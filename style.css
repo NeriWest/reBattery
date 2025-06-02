@@ -44,8 +44,6 @@ fieldset{
     text-decoration: none;
     color: black;
 }
-
-
 .deleteButton {
     border: solid 1px black;
     background-color: lightcoral;
@@ -62,8 +60,6 @@ fieldset{
     text-decoration: none;
     color: black;
 }
-
-
 .editButton a{
     border: solid 1px black;
     background-color: lightyellow;
@@ -80,8 +76,6 @@ fieldset{
     text-decoration: none;
     color: black;
 }
-
-
 .updateButton a{
     border: solid 1px black;
     background-color: lightBlue;
@@ -98,15 +92,12 @@ fieldset{
     text-decoration: none;
     color: black;
 }
-
 .center{
     text-align: center;
 }
-
 input{
     margin-bottom: 1rem;
 }
-
 /* TABLE */
 
         table {

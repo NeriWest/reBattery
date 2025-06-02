@@ -3,10 +3,6 @@ include('db.php');
 
 $residentID = $_GET['residentsID'] ?? null;
 
-if (!$residentID) {
-    die("Invalid resident ID.");
-}
-
 $sql = "SELECT * FROM residents WHERE residentsID = $residentID";
 $result = $conn->query($sql);
 $resident = $result->fetch_assoc();

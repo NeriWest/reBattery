@@ -1,7 +1,6 @@
 <?php
 include('db.php');
 
-//INITIALIZE ALL VARIABLES
 $firstName = null;
 $middleName = null;
 $lastName = null;
@@ -9,7 +8,7 @@ $dateOfBirth = null;
 $dateOfStay = null;
 $civilStatus = null;
 
-
+//ADD
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     $firstName = $_POST['firstName'];
     $middleName = $_POST['middleName'] ?? '';
@@ -18,9 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     $dateOfStay = $_POST['dateOfStay'];
 
     $civilStatus = $_POST['civilStatus'];
+    //FUNCTION TO RESIDENT CODE
     $residentCode = strtoupper(substr($lastName, 0, 3)) . "-" . date('mdY', strtotime($dateOfStay)) .
         "-" . strtoupper(substr($civilStatus, 0, 1)) . "-" . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
 
+    //ADD TO RESIDENT TABLE
     $sqlAdd = "INSERT INTO residents(residentCode, lastName, firstName, middleName, dateOfBirth, dateOfStay, civilStatus) VALUES ('$residentCode','$lastName', '$firstName', '$middleName', '$dateOfBirth', '$dateOfStay', '$civilStatus')";
 
     $stmt = $conn->prepare($sqlAdd);
@@ -30,9 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     } else {
         die("Error: " . $stmt->error);
     }
-
 }
-
+//SEARCH FUNCTION
 $search = $_GET['search'] ?? '';
 if ($search) {
     $sql = "SELECT * FROM residents 
@@ -53,6 +53,7 @@ function formatDate($dateString)
     return $date->format('F j, Y'); // Example: September 2, 1977
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,27 +65,22 @@ function formatDate($dateString)
 </head>
 
 <body>
-
     <div class="content">
         <form method="POST" action="index.php">
             <fieldset>
                 <legend>Add Resident</legend>
-
                 <!-- First Name -->
                 <label>First Name*:
                     <input type="text" name="firstName" value="<?= $firstName ?>" minlength="2" maxlength="35" required>
                 </label><br>
-
                 <!-- Middle Name -->
                 <label>Middle Name:
                     <input type="text" name="middleName" value="<?= $middleName ?>" minlength="2" maxlength="35">
                 </label><br>
-
                 <!-- Last Name -->
                 <label>Last Name*:
                     <input type="text" name="lastName" value="<?= $lastName ?>" minlength="2" maxlength="35" required>
                 </label><br>
-
                 <?php
                 $maxDate = date('Y-m-d'); // today's date
                 $minDate = date('Y-m-d', strtotime('-120 years')); // 120 years ago
@@ -100,7 +96,6 @@ function formatDate($dateString)
                     <input type="date" name="dateOfStay" value="<?= $dateOfStay ?>" min="<?php echo $minDate; ?>"
                         max="<?php echo $maxDate; ?>" required>
                 </label><br>
-
                 <!-- Civil Status -->
                 <label>Civil Status:
                     <select name="civilStatus" required>
@@ -176,5 +171,4 @@ function formatDate($dateString)
         <?php endif; ?>
     </div>
 </body>
-
 </html>
